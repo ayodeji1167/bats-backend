@@ -22,6 +22,7 @@
     "check-typing": "tsc"
   },
   "dependencies": {
+    "@nestjs-modules/mailer": "^1.10.3",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.1.1",
     "@nestjs/core": "^10.0.0",
@@ -30,6 +31,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
+    "handlebars": "^4.7.8",
     "mongoose": "^8.0.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1"

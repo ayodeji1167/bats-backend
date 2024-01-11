@@ -6,10 +6,12 @@ import { ConfigModule } from '@nestjs/config';
 import config from './configuration/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MongooseConnect } from './db/mongo';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
     RequestModule,
+    MailModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [config],
