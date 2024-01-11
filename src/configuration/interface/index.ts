@@ -5,4 +5,11 @@ export interface IBatsConfig {
   database: {
     uri: string;
   };
+  email: {
+    host: string;
+    user: string;
+    pass: string;
+    port: string;
+    from: string;
+  };
 }
