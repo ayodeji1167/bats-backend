@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { CreateLocation } from '../dto/create-property.dto';
 
 @Schema({
   timestamps: true,
@@ -33,7 +34,7 @@ export class Property {
   yearBuilt: string;
   @Prop()
   floorNumber: string;
-  @Prop()
+  @Prop({ type: CreateLocation })
   location: {
     country: string;
     state: string;

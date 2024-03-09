@@ -3,7 +3,7 @@
 import { BadRequestException } from '@nestjs/common/exceptions';
 import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 import { Request } from 'express';
-import path from 'path';
+import * as path from 'path';
 
 const imageFilter = (
   req: Request,
@@ -23,6 +23,7 @@ const imageFilter = (
     '.docx',
     '.pdf',
   ];
+
   const fileCheck = fileFormats.includes(
     path.extname(file.originalname.toLowerCase())
   );

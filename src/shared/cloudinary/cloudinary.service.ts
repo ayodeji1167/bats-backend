@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { v2 } from 'cloudinary';
 import { IFile } from '../interface';
 import { IBatsConfig } from 'src/configuration/interface';
-import streamifier from 'streamifier';
+import * as streamifier from 'streamifier';
 
 @Injectable()
 export class CloudinaryService {
@@ -49,6 +49,8 @@ export class CloudinaryService {
     resourceType: 'image' | 'video' | 'raw' | 'auto' = 'image'
   ): Promise<IFile> {
     let result;
+    console.log('file is ', file);
+
     try {
       result = (await this.uploadImage(file, section, resourceType)) as any;
     } catch (err) {

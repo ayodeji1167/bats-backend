@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import {
   IsNotEmpty,
   IsIn,
@@ -7,6 +7,7 @@ import {
   IsArray,
   ValidateNested,
   IsOptional,
+  Min,
 } from 'class-validator';
 
 export class CreateLocation {
@@ -33,7 +34,7 @@ export class CreatePropertyDto {
   leaseType: string;
 
   @IsArray()
-  @ValidateNested({ each: true }) // Validate each item in the array
+  // @ValidateNested({ each: true }) // Validate each item in the array
   @Type(() => String) // Explicitly specify string type
   amenities: string[];
 
@@ -59,16 +60,19 @@ export class CreatePropertyDto {
   @IsString()
   shortDescription: string;
 
-  @IsNumber()
+  @IsOptional()
   @IsString()
   floorNumber: number;
 
+  @Transform(({ value }) => parseInt(value))
   @IsOptional()
   @IsNumber()
   area: number;
 
+  @Transform(({ value }) => parseInt(value))
   @IsNotEmpty()
   @IsNumber()
+  @Min(0)
   price: number;
   @IsOptional()
   @IsNumber()

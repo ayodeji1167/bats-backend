@@ -7,6 +7,8 @@ import { CloudinaryService } from 'src/shared/cloudinary/cloudinary.service';
 export class PropertyService {
   constructor(private cloudinaryService: CloudinaryService) {}
   async create(files: FilePayload, data: CreatePropertyDto) {
+    // console.log("files ====>" ,files);
+
     if (!files) {
       throw new BadRequestException('Please provide the property images');
     }
@@ -21,13 +23,20 @@ export class PropertyService {
 
   async saveFiles(files: FilePayload) {
     const res = { mainImage: null, otherImages: [] };
-    if (!files.mainImage || !files.otherImages) {
-      throw new BadRequestException('Please upload the Property Images');
+    if (!files.mainImage) {
+      throw new BadRequestException('Please upload the Main Image');
     }
+    if (!files.otherImages) {
+      throw new BadRequestException('Please upload the Other Images');
+    }
+    console.log('uploadingf first one');
+
     const mainImageRes = await this.cloudinaryService.uploadSingleImage(
-      files?.mainImage,
+      files?.mainImage[0],
       'MAIN_IMAGE'
     );
+    console.log('done uploading first one');
+
     const otherImagesRes = await this.cloudinaryService.uploadMultipleImages(
       files?.otherImages,
       'OTHER_IMAGES'
