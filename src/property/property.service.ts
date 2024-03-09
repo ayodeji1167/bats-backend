@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { CreatePropertyDto } from './dto/create-property.dto';
+import { FilePayload } from './dto/file-upload';
 
 @Injectable()
 export class PropertyService {
-  create(data: any) {
+  create(files: FilePayload, data: CreatePropertyDto) {
     return data;
     // return `This action returns all property`;
   }

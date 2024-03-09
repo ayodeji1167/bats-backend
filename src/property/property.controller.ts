@@ -6,10 +6,13 @@ import {
   Body,
   Post,
   UseInterceptors,
+  UploadedFiles,
 } from '@nestjs/common';
 import { PropertyService } from './property.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { imageOptions } from 'src/shared/multer';
+import { FilePayload } from './dto/file-upload';
 
 @Controller('property')
 export class PropertyController {
@@ -21,13 +24,17 @@ export class PropertyController {
       [
         { name: 'mainImage', maxCount: 1 },
         { name: 'otherImages', maxCount: 4 },
-      ]
-      // imageOptions
+      ],
+
+      imageOptions
     )
   )
   @Post()
-  create(@Body() createPropertyDto: CreatePropertyDto) {
-    return this.propertyService.create(createPropertyDto);
+  create(
+    @UploadedFiles() files: FilePayload,
+    @Body() createPropertyDto: CreatePropertyDto
+  ) {
+    return this.propertyService.create(files, createPropertyDto);
   }
 
   @Get()
