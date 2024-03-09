@@ -1,23 +1,24 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { CreateLocation } from '../dto/create-property.dto';
+import { IFile, IFiles } from 'src/shared/interface';
 
 @Schema({
   timestamps: true,
 })
 export class Property {
-  @Prop()
-  mainImage: string;
+  @Prop({ type: Object })
+  mainImage: IFile;
   @Prop()
   leaseType: 'buy' | 'rent' | 'lease';
   @Prop()
   category: 'buy' | 'rent' | 'lease';
   @Prop({ unique: true })
   uniqueId: string;
+  @Prop({ type: Object })
+  otherImages: IFiles;
   @Prop()
-  otherImages: Array<string>;
-  @Prop()
-  ammenities: Array<string>;
+  amenities: Array<string>;
   @Prop()
   title: string;
   @Prop()

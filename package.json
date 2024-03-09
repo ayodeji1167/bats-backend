@@ -34,6 +34,7 @@
     "cloudinary": "^2.0.3",
     "handlebars": "^4.7.8",
     "mongoose": "^8.0.4",
+    "nanoid": "^3.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "streamifier": "^0.1.1"

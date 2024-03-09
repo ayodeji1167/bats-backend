@@ -2,10 +2,18 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { FilePayload } from './dto/file-upload';
 import { CloudinaryService } from 'src/shared/cloudinary/cloudinary.service';
+import { InjectModel } from '@nestjs/mongoose';
+import { Property, PropertyDocument } from './entities/property.entity';
+import { Model } from 'mongoose';
+import { nanoid } from 'nanoid';
 
 @Injectable()
 export class PropertyService {
-  constructor(private cloudinaryService: CloudinaryService) {}
+  constructor(
+    private cloudinaryService: CloudinaryService,
+    @InjectModel(Property.name) private eventModel: Model<PropertyDocument>
+  ) {}
+
   async create(files: FilePayload, data: CreatePropertyDto) {
     // console.log("files ====>" ,files);
 
@@ -14,11 +22,17 @@ export class PropertyService {
     }
 
     //upload Images
-    console.log('im about to save files');
     const images = await this.saveFiles(files);
 
-    console.log('the response are ', images);
-    return data;
+    console.log('nanoid is ', nanoid(6));
+    const property = await this.eventModel.create({
+      ...data,
+      uniqueId: String(nanoid(6)).toUpperCase(),
+      mainImage: images?.mainImage,
+      otherImages: images?.otherImages,
+    });
+
+    return property;
   }
 
   async saveFiles(files: FilePayload) {
@@ -29,13 +43,11 @@ export class PropertyService {
     if (!files.otherImages) {
       throw new BadRequestException('Please upload the Other Images');
     }
-    console.log('uploadingf first one');
 
     const mainImageRes = await this.cloudinaryService.uploadSingleImage(
       files?.mainImage[0],
       'MAIN_IMAGE'
     );
-    console.log('done uploading first one');
 
     const otherImagesRes = await this.cloudinaryService.uploadMultipleImages(
       files?.otherImages,
