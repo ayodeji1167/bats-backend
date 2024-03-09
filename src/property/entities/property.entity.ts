@@ -18,7 +18,7 @@ export class Property {
   @Prop()
   ammenities: Array<string>;
   @Prop()
-  name: string;
+  title: string;
   @Prop()
   propertyType: string;
   @Prop()
@@ -27,7 +27,7 @@ export class Property {
   area: string;
   @Prop({ default: 0 })
   price: number;
-  @Prop()
+  @Prop({ default: 'AED' })
   currency: string;
   @Prop()
   yearBuilt: string;
