@@ -1,14 +1,34 @@
-import { Controller, Get, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Delete,
+  Body,
+  Post,
+  UseInterceptors,
+} from '@nestjs/common';
 import { PropertyService } from './property.service';
+import { CreatePropertyDto } from './dto/create-property.dto';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 
 @Controller('property')
 export class PropertyController {
   constructor(private readonly propertyService: PropertyService) {}
 
-  // @Post()
-  // create(@Body() createPropertyDto: CreatePropertyDto) {
-  //   return this.propertyService.create(createPropertyDto);
-  // }
+  @Post()
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        { name: 'mainImage', maxCount: 1 },
+        { name: 'otherImages', maxCount: 4 },
+      ]
+      // imageOptions
+    )
+  )
+  @Post()
+  create(@Body() createPropertyDto: CreatePropertyDto) {
+    return this.propertyService.create(createPropertyDto);
+  }
 
   @Get()
   findAll() {

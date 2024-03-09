@@ -2,6 +2,10 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class PropertyService {
+  create(data: any) {
+    return data;
+    // return `This action returns all property`;
+  }
   findAll() {
     return `This action returns all property`;
   }

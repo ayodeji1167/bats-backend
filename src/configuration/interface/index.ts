@@ -12,4 +12,9 @@ export interface IBatsConfig {
     port: string;
     from: string;
   };
+  cloudinary: {
+    name: string;
+    apiKey: string;
+    secret: string;
+  };
 }
