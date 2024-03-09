@@ -3,8 +3,8 @@ import { CreateRequestDto } from './dto/create-request.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Request, RequestDocument } from './entities/request.entity';
 import { Model } from 'mongoose';
-import { MailService } from 'src/mail/mail.service';
 import { EMAIL_SUBJECTS } from 'src/configuration/constants';
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class RequestService {

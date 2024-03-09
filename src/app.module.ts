@@ -7,6 +7,9 @@ import config from './configuration/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MongooseConnect } from './db/mongo';
 import { MailModule } from './mail/mail.module';
+import { PropertyModule } from './property/property.module';
+import { UserModule } from './user/user.module';
+import { InquiryModule } from './inquiry/inquiry.module';
 
 @Module({
   imports: [
@@ -17,6 +20,9 @@ import { MailModule } from './mail/mail.module';
       load: [config],
     }),
     MongooseModule.forRootAsync({ useClass: MongooseConnect }),
+    PropertyModule,
+    UserModule,
+    InquiryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
